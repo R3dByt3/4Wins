@@ -8,7 +8,11 @@ namespace DiMappings
         public INinjectModule[] Mappings => new INinjectModule[]
         {
             new LoggerMappings(),
-            new DataAccessMappings(),
+            new FileManagerMappings(),
+            new MediaManagerMappings(),
+            new CompressorMappings(),
+            new SettingsMappings(),
+            new DBAccessMappings(),
             new ConfiguratorMappings()
         };
     }

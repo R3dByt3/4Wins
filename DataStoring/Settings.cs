@@ -2,7 +2,7 @@
 
 namespace DataStoring
 {
-    public class DataAccess : IDataAccess
+    public class Settings : ISettings
     {
     }
 }

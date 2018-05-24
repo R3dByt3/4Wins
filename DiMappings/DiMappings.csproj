@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="IO">
+      <HintPath>..\..\IO\bin\Release\IO.dll</HintPath>
+    </Reference>
     <Reference Include="Logger">
       <HintPath>..\..\Logger\bin\Release\Logger.dll</HintPath>
     </Reference>
@@ -48,9 +51,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Aggregator.cs" />
+    <Compile Include="Logic\CompressorMappings.cs" />
     <Compile Include="Logic\ConfiguratorMappings.cs" />
-    <Compile Include="Logic\DataAccessMappings.cs" />
+    <Compile Include="Logic\DBAccessMappings.cs" />
+    <Compile Include="Logic\FileManagerMappings.cs" />
     <Compile Include="Logic\LoggerMappings.cs" />
+    <Compile Include="Logic\MediaManagerMappings.cs" />
+    <Compile Include="Logic\SettingsMappings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

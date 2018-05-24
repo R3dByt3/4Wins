@@ -1,24 +1,38 @@
 ﻿using Configuration.Contracts;
+using DataStoring;
+using IO;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Configuration
 {
     public class Configurator : IConfigurator
     {
         private Dictionary<object, object> _applicationSettings;
+        private readonly string _cfgPath;
+        private readonly ICompressor _compressor;
 
-        public Configurator()
+        public Configurator(ICompressor compressor)
         {
+            _compressor = compressor;
             _applicationSettings = new Dictionary<object, object>();
+            _cfgPath = Directory.GetCurrentDirectory() + @"\config\config.cfg";
+            if (!Directory.Exists(Path.GetDirectoryName(_cfgPath)))
+                Directory.CreateDirectory(Path.GetDirectoryName(_cfgPath));
         }
 
         public void Load()
         {
-            //ToDo: IMPL
-            //string saveFile = File.ReadAllText(Directory.GetCurrentDirectory() + @"\config\conf.MDc");
-            //Set(saveFile);
-            //Set(Compressor.DeCompress<Settings>(File.ReadAllBytes(saveFile)));
+            string saveFile = File.ReadAllText(_cfgPath);
+            Set(saveFile);
+            Set(_compressor.DeCompress<Settings>(File.ReadAllBytes(saveFile)));
+        }
+
+        public void Save()
+        {
+            File.WriteAllText(_cfgPath, Get<string>());
+            File.WriteAllBytes(Get<string>(), _compressor.Compress(Get<Settings>()));
         }
 
         public T Get<T>()

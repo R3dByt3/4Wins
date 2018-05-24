@@ -4,11 +4,11 @@ using Ninject.Modules;
 
 namespace DiMappings.Logic
 {
-    class DataAccessMappings : NinjectModule
+    public class SettingsMappings : NinjectModule
     {
         public override void Load()
         {
-            Bind<IDataAccess>().To<DataAccess>();
+            Bind<ISettings>().To<Settings>();
         }
     }
 }
