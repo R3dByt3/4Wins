@@ -4,7 +4,7 @@ using GUI.ViewModels;
 namespace GUI.Views
 {
     /// <summary>
-    /// Interaktionslogik für MainWindow.xaml
+    /// Interaktionslogik fÃ¼r MainWindow.xaml
     /// </summary>
     public partial class MainWindowView : MetroWindow
     {
@@ -13,8 +13,6 @@ namespace GUI.Views
         public MainWindowView()
         {
             InitializeComponent();
-            _viewModel = new MainWindowViewModel();
-            base.DataContext = _viewModel;
+            base.DataContext = this;
         }
-    }
-}
+    }
