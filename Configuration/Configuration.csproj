@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ExtendedIO">
+      <HintPath>..\..\IO\bin\Release\ExtendedIO.dll</HintPath>
+    </Reference>
     <Reference Include="IO">
       <HintPath>..\..\IO\bin\Release\IO.dll</HintPath>
     </Reference>

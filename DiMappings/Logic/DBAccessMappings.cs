@@ -1,4 +1,4 @@
-﻿using IO;
+﻿using ExtendedIO;
 using Ninject.Modules;
 
 namespace DiMappings.Logic

@@ -1,6 +1,6 @@
 ﻿using Configuration.Contracts;
 using DataStoring;
-using IO;
+using ExtendedIO;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,15 +24,15 @@ namespace Configuration
 
         public void Load()
         {
-            string saveFile = File.ReadAllText(_cfgPath);
+            string saveFile = System.IO.File.ReadAllText(_cfgPath);
             Set(saveFile);
-            Set(_compressor.DeCompress<Settings>(File.ReadAllBytes(saveFile)));
+            Set(_compressor.DeCompress<Settings>(System.IO.File.ReadAllBytes(saveFile)));
         }
 
         public void Save()
         {
-            File.WriteAllText(_cfgPath, Get<string>());
-            File.WriteAllBytes(Get<string>(), _compressor.Compress(Get<Settings>()));
+            System.IO.File.WriteAllText(_cfgPath, Get<string>());
+            System.IO.File.WriteAllBytes(Get<string>(), _compressor.Compress(Get<Settings>()));
         }
 
         public T Get<T>()
