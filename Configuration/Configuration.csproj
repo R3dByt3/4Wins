@@ -34,9 +34,6 @@
     <Reference Include="ExtendedIO">
       <HintPath>..\..\IO\bin\Release\ExtendedIO.dll</HintPath>
     </Reference>
-    <Reference Include="IO">
-      <HintPath>..\..\IO\bin\Release\IO.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -49,16 +46,32 @@
   <ItemGroup>
     <Compile Include="Configurator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Configuration.Contracts\Configuration.Contracts.csproj">
       <Project>{ACDEC481-613F-457E-B707-00AF9F89BFEF}</Project>
       <Name>Configuration.Contracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DataStoring.Contracts\DataStoring.Contracts.csproj">
+      <Project>{D5E4C2FC-43C9-452A-8E38-E1F09493DC1E}</Project>
+      <Name>DataStoring.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataStoring\DataStoring.csproj">
       <Project>{B7E74531-2E05-4D26-A3F0-D3AC55DB33C8}</Project>
       <Name>DataStoring</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

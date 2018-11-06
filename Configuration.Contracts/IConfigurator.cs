@@ -1,10 +1,13 @@
-﻿namespace Configuration.Contracts
+﻿using System;
+using System.Collections.Generic;
+
+namespace Configuration.Contracts
 {
     public interface IConfigurator
     {
-        void Load();
+        void Load(IEnumerable<Type> types);
         void Save();
-        void Set<T>(T Setting);
-        T Get<T>();
+        void Set<T>(T Setting) where T : class;
+        T Get<T>() where T : class;
     }
 }

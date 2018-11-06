@@ -1,50 +1,80 @@
 ﻿using Configuration.Contracts;
 using DataStoring;
-using ExtendedIO;
+using DataStoring.Contracts;
+using ExtendedIO.SQLiteSupport;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
+using System.Linq;
 
 namespace Configuration
 {
     public class Configurator : IConfigurator
     {
-        private Dictionary<object, object> _applicationSettings;
-        private readonly string _cfgPath;
-        private readonly ICompressor _compressor;
+        private readonly Dictionary<object, object> _applicationSettings;
+        private readonly IDBAccess _dBAccess;
+        private readonly Properties.Settings _appSettings;
 
-        public Configurator(ICompressor compressor)
+        public Configurator(IDBAccess dBAccess)
         {
-            _compressor = compressor;
+            _appSettings = Properties.Settings.Default;
+            if (string.IsNullOrWhiteSpace(_appSettings.PathToDb))
+            {
+                _appSettings.PathToDb = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                    _appSettings.AppName, _appSettings.DbName);
+            }
+            _appSettings.PropertyChanged += SaveSettings;
+            _dBAccess = dBAccess;
             _applicationSettings = new Dictionary<object, object>();
             _cfgPath = Directory.GetCurrentDirectory() + @"\config\config.cfg";
             if (!Directory.Exists(Path.GetDirectoryName(_cfgPath)))
                 Directory.CreateDirectory(Path.GetDirectoryName(_cfgPath));
         }
 
-        public void Load()
+        private void SaveSettings(object sender, PropertyChangedEventArgs e)
         {
-            string saveFile = System.IO.File.ReadAllText(_cfgPath);
-            Set(saveFile);
-            Set(_compressor.DeCompress<Settings>(System.IO.File.ReadAllBytes(saveFile)));
+            _appSettings.Save();
+        }
+
+        public void Load(IEnumerable<Type> types)
+        {
+            _dBAccess.InitDBA(_appSettings.PathToDb);
+            _dBAccess.InsertTables(types);
+            IList<Settings> settings = _dBAccess.GetAll<Settings>().ToList();
+            if (settings != null && settings.Count != 0)
+            {
+                Set((ISettings)settings.First());
+            }
+            else
+            {
+                Set((ISettings)null);
+            }
         }
 
         public void Save()
         {
-            System.IO.File.WriteAllText(_cfgPath, Get<string>());
-            System.IO.File.WriteAllBytes(Get<string>(), _compressor.Compress(Get<Settings>()));
+            _dBAccess.SaveObject(Get<ISettings>(), true);
         }
 
-        public T Get<T>()
+        public T Get<T>() where T : class
         {
-            if (!_applicationSettings.ContainsKey(typeof(T))) throw new ArgumentNullException(
-                "This value has not been set yet!");
+            if (!_applicationSettings.ContainsKey(typeof(T)))
+            {
+                return null;
+            }
+
             return (T)_applicationSettings[typeof(T)];
         }
 
-        public void Set<T>(T Setting)
+        public void Set<T>(T Setting) where T : class
         {
-            if (_applicationSettings.ContainsKey(typeof(T))) _applicationSettings.Remove(typeof(T));
+            if (_applicationSettings.ContainsKey(typeof(T)))
+            {
+                _applicationSettings.Remove(typeof(T));
+            }
+
             _applicationSettings.Add(typeof(T), Setting);
         }
     }
