@@ -28,9 +28,6 @@ namespace Configuration
             _appSettings.PropertyChanged += SaveSettings;
             _dBAccess = dBAccess;
             _applicationSettings = new Dictionary<object, object>();
-            _cfgPath = Directory.GetCurrentDirectory() + @"\config\config.cfg";
-            if (!Directory.Exists(Path.GetDirectoryName(_cfgPath)))
-                Directory.CreateDirectory(Path.GetDirectoryName(_cfgPath));
         }
 
         private void SaveSettings(object sender, PropertyChangedEventArgs e)
