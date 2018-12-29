@@ -1,13 +1,14 @@
 ﻿using Logger;
 using Ninject.Modules;
+using static Logger.LoggingLevelEnum;
 
 namespace DiMappings.Logic
 {
-    class LoggerMappings : NinjectModule
+    internal class LoggerMappings : NinjectModule
     {
         public override void Load()
         {
-            Bind<ILogger>().To<Logger.Logger>().WithConstructorArgument("GUI").WithConstructorArgument(LoggingLevelEnum.LoggingLevel.Debug);
+            Bind<ILoggerFactory>().To<LoggerFactory>().WithConstructorArgument("GUI", LoggingLevel.Debug).WithConstructorArgument(LoggingLevelEnum.LoggingLevel.Debug);
         }
     }
 }
