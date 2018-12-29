@@ -1,8 +1,9 @@
 ﻿using DataStoring.Contracts;
+using ExtendedIO.SQLiteSupport;
 
 namespace DataStoring
 {
-    public class Settings : ISettings
+    public class Settings : BaseNode, ISettings
     {
     }
 }

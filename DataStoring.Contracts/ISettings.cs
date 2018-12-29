@@ -1,6 +1,8 @@
-﻿namespace DataStoring.Contracts
+﻿using ExtendedIO.SQLiteSupport;
+
+namespace DataStoring.Contracts
 {
-    public interface ISettings
+    public interface ISettings : IBaseNode
     {
     }
 }
