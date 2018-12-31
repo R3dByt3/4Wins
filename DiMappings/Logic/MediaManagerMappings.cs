@@ -1,9 +1,9 @@
-﻿using ExtendedIO;
+﻿using ExtendedIO.MediaToolKitSet;
 using Ninject.Modules;
 
 namespace DiMappings.Logic
 {
-    class MediaManagerMappings : NinjectModule
+    internal class MediaManagerMappings : NinjectModule
     {
         public override void Load()
         {

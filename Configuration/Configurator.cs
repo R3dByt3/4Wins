@@ -22,7 +22,7 @@ namespace Configuration
             if (string.IsNullOrWhiteSpace(_appSettings.PathToDb))
             {
                 _appSettings.PathToDb = Path.Combine(
-                    Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                    Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
                     _appSettings.AppName, _appSettings.DbName);
             }
             _appSettings.PropertyChanged += SaveSettings;

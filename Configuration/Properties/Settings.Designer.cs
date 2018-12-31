@@ -37,7 +37,7 @@ namespace Configuration.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Template.db")]
         public string DbName {
             get {
                 return ((string)(this["DbName"]));
@@ -49,7 +49,7 @@ namespace Configuration.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Template")]
         public string AppName {
             get {
                 return ((string)(this["AppName"]));

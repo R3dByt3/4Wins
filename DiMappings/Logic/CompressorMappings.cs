@@ -1,9 +1,9 @@
-﻿using ExtendedIO;
+﻿using ExtendedIO.Compression;
 using Ninject.Modules;
 
 namespace DiMappings.Logic
 {
-    class CompressorMappings : NinjectModule
+    internal class CompressorMappings : NinjectModule
     {
         public override void Load()
         {

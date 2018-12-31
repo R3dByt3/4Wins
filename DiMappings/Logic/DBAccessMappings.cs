@@ -1,9 +1,9 @@
-﻿using ExtendedIO;
+﻿using ExtendedIO.SQLiteSupport;
 using Ninject.Modules;
 
 namespace DiMappings.Logic
 {
-    class DBAccessMappings : NinjectModule
+    internal class DBAccessMappings : NinjectModule
     {
         public override void Load()
         {

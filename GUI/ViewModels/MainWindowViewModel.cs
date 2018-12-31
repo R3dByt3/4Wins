@@ -5,8 +5,8 @@ namespace GUI.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        private ILogger _logger;
-        private StandardKernel _standardKernel;
+        private readonly ILoggerFactory _loggerFactory;
+        private IKernel _standardKernel;
 
         //private VehicleViewModel _vehicleViewModel;
         //private EquipmentViewModel _equipmentViewModel;
@@ -15,14 +15,14 @@ namespace GUI.ViewModels
         private ViewModelBase _currentModel;
         public ViewModelBase CurrentModel
         {
-            get { return _currentModel; }
+            get => _currentModel;
             set { _currentModel = value; OnPropertyChanged(); }
         }
 
         public MainWindowViewModel()
         {
-            _standardKernel = Controller.StandardKernel;
-            _logger = _standardKernel.Get<ILogger>();
+            _standardKernel = Controller.Kernel;
+            _loggerFactory = _standardKernel.Get<ILoggerFactory>();
             //_vehicleViewModel = new VehicleViewModel();
             //_equipmentViewModel = new EquipmentViewModel();
             //_comparerViewModel = new ComparerViewModel();

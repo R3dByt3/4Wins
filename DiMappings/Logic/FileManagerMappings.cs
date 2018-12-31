@@ -1,9 +1,9 @@
-﻿using ExtendedIO;
+﻿using ExtendedIO.Files;
 using Ninject.Modules;
 
 namespace DiMappings.Logic
 {
-    class FileManagerMappings : NinjectModule
+    internal class FileManagerMappings : NinjectModule
     {
         public override void Load()
         {

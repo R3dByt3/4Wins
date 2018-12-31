@@ -5,6 +5,6 @@ namespace GUI
 {
     public static class Controller
     {
-        public static StandardKernel StandardKernel = new StandardKernel(new Aggregator().Mappings);
+        public static IKernel Kernel = new StandardKernel(new Aggregator().Mappings);
     }
 }
