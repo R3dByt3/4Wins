@@ -19,13 +19,13 @@ namespace Configuration
         public Configurator(IDBAccess dBAccess)
         {
             _appSettings = Properties.Settings.Default;
+            _appSettings.PropertyChanged += SaveSettings;
             if (string.IsNullOrWhiteSpace(_appSettings.PathToDb))
             {
                 _appSettings.PathToDb = Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
                     _appSettings.AppName, _appSettings.DbName);
             }
-            _appSettings.PropertyChanged += SaveSettings;
             _dBAccess = dBAccess;
             _applicationSettings = new Dictionary<object, object>();
         }
