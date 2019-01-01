@@ -6,6 +6,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI.Views"
         xmlns:cal="http://www.caliburnproject.org"
+        xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+        xmlns:extended="clr-namespace:ExtendedControls;assembly=ExtendedControls"
         mc:Ignorable="d"
         Title="Template" Height="450" Width="800">
     <Grid>
@@ -24,6 +26,6 @@
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
         </TabControl>
-        <UserControl Name="Tab" Grid.Row="1" cal:View.Model="{Binding CurrentModel}"/>
+        <UserControl Grid.Row="1" cal:View.Model="{Binding CurrentModel}"/>
     </Grid>
 </Controls:MetroWindow>

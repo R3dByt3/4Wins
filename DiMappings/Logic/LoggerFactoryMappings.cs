@@ -8,7 +8,10 @@ namespace DiMappings.Logic
     {
         public override void Load()
         {
-            Bind<ILoggerFactory>().To<LoggerFactory>().WithConstructorArgument("GUI").WithConstructorArgument(LoggingLevel.Debug);
+            Bind<ILoggerFactory>().To<LoggerFactory>()
+                .InSingletonScope()
+                .WithConstructorArgument("Renter")
+                .WithConstructorArgument(LoggingLevel.Debug);
         }
     }
 }
