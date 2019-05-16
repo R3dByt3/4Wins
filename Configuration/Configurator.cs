@@ -52,7 +52,7 @@ namespace Configuration
 
         public void Save()
         {
-            _dBAccess.SaveObject(Get<ISettings>(), true);
+            _dBAccess.SaveObject(Get<ISettings>());
         }
 
         public T Get<T>() where T : class
