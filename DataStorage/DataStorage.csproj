@@ -4,14 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D5E4C2FC-43C9-452A-8E38-E1F09493DC1E}</ProjectGuid>
+    <ProjectGuid>{9E8643F7-17BE-4F40-B077-457070CE71E0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DataStoring.Contracts</RootNamespace>
-    <AssemblyName>DataStoring.Contracts</AssemblyName>
+    <RootNamespace>DataStorage</RootNamespace>
+    <AssemblyName>DataStorage</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -42,8 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ISettings.cs" />
+    <Compile Include="DatabaseAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataStorage.Contracts\DataStorage.Contracts.csproj">
+      <Project>{4C04196A-A482-4514-B8B2-AC07C559F746}</Project>
+      <Name>DataStorage.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataStoring.Contracts\DataStoring.Contracts.csproj">
+      <Project>{D5E4C2FC-43C9-452A-8E38-E1F09493DC1E}</Project>
+      <Name>DataStoring.Contracts</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

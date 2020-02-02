@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27428.2043
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI", "GUI\GUI.csproj", "{2D87A623-2D40-4C50-AADF-FB3C301FDD2C}"
 EndProject
@@ -26,6 +26,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataStoring.Contracts", "DataStoring.Contracts\DataStoring.Contracts.csproj", "{D5E4C2FC-43C9-452A-8E38-E1F09493DC1E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiMappings", "DiMappings\DiMappings.csproj", "{84D9D35E-9CCE-4492-94CE-987CE2FC40E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataStorage", "DataStorage\DataStorage.csproj", "{9E8643F7-17BE-4F40-B077-457070CE71E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataStorage.Contracts", "DataStorage.Contracts\DataStorage.Contracts.csproj", "{4C04196A-A482-4514-B8B2-AC07C559F746}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +61,14 @@ Global
 		{84D9D35E-9CCE-4492-94CE-987CE2FC40E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84D9D35E-9CCE-4492-94CE-987CE2FC40E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84D9D35E-9CCE-4492-94CE-987CE2FC40E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E8643F7-17BE-4F40-B077-457070CE71E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E8643F7-17BE-4F40-B077-457070CE71E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E8643F7-17BE-4F40-B077-457070CE71E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E8643F7-17BE-4F40-B077-457070CE71E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C04196A-A482-4514-B8B2-AC07C559F746}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C04196A-A482-4514-B8B2-AC07C559F746}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C04196A-A482-4514-B8B2-AC07C559F746}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C04196A-A482-4514-B8B2-AC07C559F746}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,6 +80,8 @@ Global
 		{B7E74531-2E05-4D26-A3F0-D3AC55DB33C8} = {05D66F62-E675-40AC-8274-34D5F2280544}
 		{D5E4C2FC-43C9-452A-8E38-E1F09493DC1E} = {05D66F62-E675-40AC-8274-34D5F2280544}
 		{84D9D35E-9CCE-4492-94CE-987CE2FC40E7} = {640C6E4B-B876-4E6C-A72B-DC3F1C777057}
+		{9E8643F7-17BE-4F40-B077-457070CE71E0} = {C4A201B5-CEDE-47B7-A4C3-42C5897A94D8}
+		{4C04196A-A482-4514-B8B2-AC07C559F746} = {C4A201B5-CEDE-47B7-A4C3-42C5897A94D8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FC6B03B2-AE01-44BF-8D67-5862917E0F6A}

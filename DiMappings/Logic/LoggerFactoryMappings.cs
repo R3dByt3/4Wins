@@ -1,6 +1,5 @@
-﻿using Logger;
+﻿using NetStandard.Logger;
 using Ninject.Modules;
-using static Logger.LoggingLevelEnum;
 
 namespace DiMappings.Logic
 {

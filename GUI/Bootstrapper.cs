@@ -2,7 +2,7 @@
 using Configuration.Contracts;
 using DataStoring;
 using GUI.ViewModels;
-using Logger;
+using NetStandard.Logger;
 using Ninject;
 using System;
 using System.Windows;

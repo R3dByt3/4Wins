@@ -9,7 +9,6 @@ namespace DiMappings
         {
             new LoggerFactoryMappings(),
             new FileManagerMappings(),
-            new MediaManagerMappings(),
             new CompressorMappings(),
             new SettingsMappings(),
             new DBAccessMappings(),

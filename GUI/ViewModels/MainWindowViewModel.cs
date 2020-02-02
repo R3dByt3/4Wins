@@ -1,4 +1,4 @@
-﻿using Logger;
+﻿using NetStandard.Logger;
 using Ninject;
 
 namespace GUI.ViewModels

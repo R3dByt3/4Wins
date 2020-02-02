@@ -1,7 +1,6 @@
 ﻿using Configuration.Contracts;
-using DataStoring;
+using DataStorage.Contracts;
 using DataStoring.Contracts;
-using ExtendedIO.SQLiteSupport;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,10 +12,10 @@ namespace Configuration
     public class Configurator : IConfigurator
     {
         private readonly Dictionary<object, object> _applicationSettings;
-        private readonly IDBAccess _dBAccess;
+        private readonly IDatabaseAccess _databaseAccess;
         private readonly Properties.Settings _appSettings;
 
-        public Configurator(IDBAccess dBAccess)
+        public Configurator(IDatabaseAccess databaseAccess)
         {
             _appSettings = Properties.Settings.Default;
             _appSettings.PropertyChanged += SaveSettings;
@@ -26,7 +25,7 @@ namespace Configuration
                     Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
                     _appSettings.AppName, _appSettings.DbName);
             }
-            _dBAccess = dBAccess;
+            _databaseAccess = databaseAccess;
             _applicationSettings = new Dictionary<object, object>();
         }
 
@@ -37,12 +36,12 @@ namespace Configuration
 
         public void Load(IEnumerable<Type> types)
         {
-            _dBAccess.InitDBA(_appSettings.PathToDb);
-            _dBAccess.InsertTables(types);
-            IList<Settings> settings = _dBAccess.GetAll<Settings>().ToList();
+            _databaseAccess.InitDBA(_appSettings.PathToDb);
+            _databaseAccess.InsertTables(types);
+            IList<ISettings> settings = _databaseAccess.GetAll<ISettings>().ToList();
             if (settings != null && settings.Count != 0)
             {
-                Set((ISettings)settings.First());
+                Set(settings.First());
             }
             else
             {
@@ -52,7 +51,7 @@ namespace Configuration
 
         public void Save()
         {
-            _dBAccess.SaveObject(Get<ISettings>());
+            _databaseAccess.SaveObject(Get<ISettings>());
         }
 
         public T Get<T>() where T : class

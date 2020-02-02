@@ -1,4 +1,5 @@
-﻿using ExtendedIO.SQLiteSupport;
+﻿using DataStorage;
+using DataStorage.Contracts;
 using Ninject.Modules;
 
 namespace DiMappings.Logic
@@ -7,7 +8,7 @@ namespace DiMappings.Logic
     {
         public override void Load()
         {
-            Bind<IDBAccess>().To<DBAccess>();
+            Bind<IDatabaseAccess>().To<DatabaseAccess>();
         }
     }
 }

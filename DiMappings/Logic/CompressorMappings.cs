@@ -1,4 +1,4 @@
-﻿using ExtendedIO.Compression;
+﻿using NetStandard.IO.Compression;
 using Ninject.Modules;
 
 namespace DiMappings.Logic

@@ -1,4 +1,4 @@
-﻿using ExtendedIO.Files;
+﻿using NetStandard.IO.Files;
 using Ninject.Modules;
 
 namespace DiMappings.Logic
