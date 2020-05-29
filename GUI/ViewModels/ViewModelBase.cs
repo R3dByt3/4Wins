@@ -1,15 +1,22 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using Caliburn.Micro;
+using NetStandard.Logger;
+using Ninject;
 
 namespace GUI.ViewModels
 {
-    public class ViewModelBase : INotifyPropertyChanged
+    public abstract class ViewModelBase : Screen
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        protected readonly IEventAggregator _eventAggregator;
+        protected readonly IKernel _kernel;
+        protected readonly ILogger _logger;
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public ViewModelBase()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            _kernel = Controller.Kernel;
+            _eventAggregator = _kernel.Get<IEventAggregator>();
+            _eventAggregator.Subscribe(this);
+            var factory = _kernel.Get<ILoggerFactory>();
+            _logger = factory.CreateFileLogger();
         }
     }
 }

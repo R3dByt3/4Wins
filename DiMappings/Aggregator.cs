@@ -7,12 +7,7 @@ namespace DiMappings
     {
         public INinjectModule[] Mappings => new INinjectModule[]
         {
-            new LoggerFactoryMappings(),
-            new FileManagerMappings(),
-            new CompressorMappings(),
-            new SettingsMappings(),
-            new DBAccessMappings(),
-            new ConfiguratorMappings()
+            new Mappings()
         };
     }
 }

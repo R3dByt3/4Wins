@@ -33,6 +33,9 @@
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Caliburn.Micro, Version=3.2.0.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Caliburn.Micro.Core.3.2.0\lib\net45\Caliburn.Micro.dll</HintPath>
+    </Reference>
     <Reference Include="NetStandard.IO">
       <HintPath>..\..\NetStandard.IO\NetStandard.IO\bin\Release\netstandard2.0\NetStandard.IO.dll</HintPath>
     </Reference>
@@ -53,12 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Aggregator.cs" />
-    <Compile Include="Logic\CompressorMappings.cs" />
-    <Compile Include="Logic\ConfiguratorMappings.cs" />
-    <Compile Include="Logic\DBAccessMappings.cs" />
-    <Compile Include="Logic\FileManagerMappings.cs" />
-    <Compile Include="Logic\LoggerFactoryMappings.cs" />
-    <Compile Include="Logic\SettingsMappings.cs" />
+    <Compile Include="Logic\Mappings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -73,14 +71,6 @@
     <ProjectReference Include="..\Configuration\Configuration.csproj">
       <Project>{E6FCA86F-CC73-4231-8FA5-4BA63C103E98}</Project>
       <Name>Configuration</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataStorage.Contracts\DataStorage.Contracts.csproj">
-      <Project>{4C04196A-A482-4514-B8B2-AC07C559F746}</Project>
-      <Name>DataStorage.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataStorage\DataStorage.csproj">
-      <Project>{9E8643F7-17BE-4F40-B077-457070CE71E0}</Project>
-      <Name>DataStorage</Name>
     </ProjectReference>
     <ProjectReference Include="..\DataStoring.Contracts\DataStoring.Contracts.csproj">
       <Project>{D5E4C2FC-43C9-452A-8E38-E1F09493DC1E}</Project>

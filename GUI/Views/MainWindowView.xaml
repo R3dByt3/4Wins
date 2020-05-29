@@ -8,24 +8,14 @@
         xmlns:cal="http://www.caliburnproject.org"
         xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         xmlns:extended="clr-namespace:ExtendedControls;assembly=ExtendedControls"
+        xmlns:custom="clr-namespace:GUI.CustomControls"
         mc:Ignorable="d"
-        Title="Template" Height="450" Width="800">
+        SizeToContent="WidthAndHeight"
+        Title="4 Wins" Height="450" Width="800">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <TabControl Grid.Row="0" FlowDirection="LeftToRight" HorizontalAlignment="Center" VerticalAlignment="Top">
-            <TabItem Header="" IsSelected="True" cal:Message.Attach="[Event PreviewMouseLeftButtonDown] = [Action SwitchPage(0)]">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-            <TabItem Header="" cal:Message.Attach="[Event PreviewMouseLeftButtonDown] = [Action SwitchPage(1)]">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-            <TabItem Header="" cal:Message.Attach="[Event PreviewMouseLeftButtonDown] = [Action SwitchPage(2)]">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-        </TabControl>
-        <UserControl Grid.Row="1" cal:View.Model="{Binding CurrentModel}"/>
+        <UserControl cal:View.Model="{Binding CurrentModel}"/>
+        
+        <!--<custom:GameFieldBox Grid.Row="0" cal:Message.Attach="[Enters]=[Test()]"/>
+        <custom:GameFieldBox Grid.Row="1" cal:Message.Attach="[Enters]=[Test()]"/>-->
     </Grid>
 </Controls:MetroWindow>
