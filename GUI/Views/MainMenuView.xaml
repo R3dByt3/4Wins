@@ -15,8 +15,8 @@
             <RowDefinition/>
             <RowDefinition Height="5"/>
             <RowDefinition/>
-            <!--<RowDefinition Height="15"/>
-            <RowDefinition/>-->
+            <RowDefinition Height="15"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Button x:Name="PlayVsAI"
                 Content="Play vs AI"
@@ -24,8 +24,8 @@
         <Button x:Name="PlayVsPlayer"
                 Content="Play vs Player 2"
                 Grid.Row="2"/>
-        <!--<Button x:Name="PlayVsNetwork"
+        <Button x:Name="PlayVsNetwork"
                 Content="Play via network"
-                Grid.Row="4"/>-->
+                Grid.Row="4"/>
     </Grid>
 </UserControl>

@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Networking.Contracts
 {
-    public interface IBroadCaster
+    public enum RequestType
     {
-        string Search();
-        string Listen();
+        Move,
+        Win,
+        Loose
     }
 }

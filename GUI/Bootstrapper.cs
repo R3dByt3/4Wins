@@ -10,6 +10,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
+using Networking.Contracts;
+
 namespace GUI
 {
     public class Bootstrapper : BootstrapperBase
@@ -35,6 +37,8 @@ namespace GUI
 
         protected override void OnExit(object sender, EventArgs e)
         {
+            var socket = Controller.Kernel.Get<IServerSocket>();
+            socket.Close();
             var factory = Controller.Kernel.Get<ILoggerFactory>();
             factory.Dispose();
             base.OnExit(sender, e);

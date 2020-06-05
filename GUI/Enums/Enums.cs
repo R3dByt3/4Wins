@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Networking.Contracts
+namespace GUI.Enums
 {
-    public interface IBroadCaster
+    public enum GameType
     {
-        string Search();
-        string Listen();
+        VsBot,
+        VsPlayer,
+        Host,
+        Client
     }
 }

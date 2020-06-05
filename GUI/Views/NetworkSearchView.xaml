@@ -6,7 +6,28 @@
              xmlns:local="clr-namespace:GUI.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/GUI;component/Styles/Styles.xaml"/>
+    </UserControl.Resources>
+    
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Button Grid.Column="0" 
+                x:Name="Host"
+                Content="Host"/>
+        <Button Grid.Column="1" 
+                x:Name="Search"
+                Content="Search"/>
+        <ListBox Grid.Row="1"
+                 Grid.ColumnSpan="2"
+                 ItemsSource="{Binding Hosts}"/>
     </Grid>
 </UserControl>

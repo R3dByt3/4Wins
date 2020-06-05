@@ -6,6 +6,8 @@ using DataStoring.Contracts;
 using NetStandard.IO.Compression;
 using NetStandard.IO.Files;
 using NetStandard.Logger;
+using Networking;
+using Networking.Contracts;
 using Ninject.Modules;
 using System;
 
@@ -29,6 +31,16 @@ namespace DiMappings.Logic
 
             Bind<IEventAggregator>().To<EventAggregator>()
                 .InSingletonScope();
+
+            Bind<IAsynchronousClient>().To<AsynchronousClient>()
+                .InSingletonScope();
+
+            Bind<IBroadCaster>().To<BroadCaster>();
+
+            Bind<IServerSocket>().To<ServerSocket>()
+                .InSingletonScope();
+
+            Bind<ISocketPackage>().To<SocketPackage>();
         }
     }
 }

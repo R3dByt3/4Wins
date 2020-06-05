@@ -80,6 +80,14 @@
       <Project>{B7E74531-2E05-4D26-A3F0-D3AC55DB33C8}</Project>
       <Name>DataStoring</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Networking.Contracts\Networking.Contracts.csproj">
+      <Project>{D061CE54-410D-4DD7-9F35-C93CD9CDA2FE}</Project>
+      <Name>Networking.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Networking\Networking.csproj">
+      <Project>{B37AE507-7A78-4890-8C51-9F3D6E85A7C5}</Project>
+      <Name>Networking</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

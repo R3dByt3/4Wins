@@ -1,4 +1,6 @@
-﻿using System;
+﻿using NetStandard.Logger;
+using Networking.Contracts;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -9,9 +11,18 @@ using System.Text;
 
 namespace Networking
 {
-    public class BroadCaster
+    public class BroadCaster : IBroadCaster
     {
-        public IEnumerable<string> GetAllLocalIPv4(NetworkInterfaceType type)
+        private readonly ILogger _logger;
+        private readonly string _ip;
+
+        public BroadCaster(ILoggerFactory loggerFactory)
+        {
+            _logger = loggerFactory.CreateFileLogger();
+            _ip = GetAllLocalIPv4(NetworkInterfaceType.Ethernet).Union(GetAllLocalIPv4(NetworkInterfaceType.Wireless80211)).First();
+        }
+
+        private IEnumerable<string> GetAllLocalIPv4(NetworkInterfaceType type)
         {
             foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces())
             {
@@ -28,45 +39,38 @@ namespace Networking
             }
         }
 
-        public IPEndPoint Listen()
+        public string Listen()
         {
-            Stopwatch stopwatch = new Stopwatch();
-            UdpClient udpServer = new UdpClient(11000);
+            var server = new UdpClient(8888);
+            var response = Encoding.ASCII.GetBytes("LISTEN");
 
-            stopwatch.Start();
-            while (stopwatch.Elapsed < TimeSpan.FromSeconds(10))
-            {
-                var endPoint = new IPEndPoint(IPAddress.Any, 11000);
-                var data = udpServer.Receive(ref endPoint); // listen on port 11000
+            var clientEp = new IPEndPoint(IPAddress.Any, 0);
+            var clientRequestData = server.Receive(ref clientEp);
+            var clientRequest = Encoding.ASCII.GetString(clientRequestData);
 
-                var ipaddresses = GetAllLocalIPv4(NetworkInterfaceType.Ethernet).Union(GetAllLocalIPv4(NetworkInterfaceType.Wireless80211));
-                var localIp = ipaddresses.FirstOrDefault();
-                var bytesToSend = Encoding.ASCII.GetBytes(localIp);
-                udpServer.Send(bytesToSend, bytesToSend.Length, endPoint); // reply back
-                udpServer.Close();
-                udpServer.Dispose();
+            Console.WriteLine("Received {0} from {1}, sending response", clientRequest, clientEp.Address.ToString());
+            server.Send(response, response.Length, clientEp);
+            server.Close();
 
-                var ip = Encoding.ASCII.GetString(data);
-                return new IPEndPoint(IPAddress.Parse(ip), 11001);
-            }
-
-            return null;
+            return clientEp.Address.ToString();
         }
 
-        //public IPEndPoint Call()
-        //{
-        //    var client = new UdpClient();
-        //    IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, 11000); // endpoint where server is listening
-        //    client.Connect(endPoint);
+        public string Search()
+        {
+            var client = new UdpClient();
+            var requestData = Encoding.ASCII.GetBytes("SEARCH");
+            var serverEp = new IPEndPoint(IPAddress.Any, 0);
 
-        //    var localIp = GetAllLocalIPv4(NetworkInterfaceType.Ethernet & NetworkInterfaceType.Wireless80211).FirstOrDefault();
-        //    var bytesToSend = Encoding.ASCII.GetBytes(localIp);
+            client.EnableBroadcast = true;
+            client.Send(requestData, requestData.Length, new IPEndPoint(IPAddress.Broadcast, 8888));
 
-        //    // send data
-        //    client.Send(bytesToSend, bytesToSend.Length);
+            var serverResponseData = client.Receive(ref serverEp);
+            var serverResponse = Encoding.ASCII.GetString(serverResponseData);
+            Console.WriteLine("Received {0} from {1}", serverResponse, serverEp.Address.ToString());
 
-        //    // then receive data
-        //    var receivedData = client.BeginReceive(ref endPoint);
-        //}
+            client.Close();
+
+            return serverEp.Address.ToString();
+        }
     }
 }

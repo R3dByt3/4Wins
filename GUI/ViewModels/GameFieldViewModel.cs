@@ -1,5 +1,7 @@
 ﻿using Caliburn.Micro;
+using GUI.Enums;
 using GUI.Models;
+using Networking.Contracts;
 using Ninject;
 using System;
 using System.Linq;
@@ -11,7 +13,9 @@ namespace GUI.ViewModels
 {
     public class GameFieldViewModel : ViewModelBase
     {
-        private readonly bool _againstBot;
+        private readonly GameType _gameType;
+        private readonly IServerSocket _serverSocket;
+        private readonly IAsynchronousClient _asynchronousClient;
 
         private int _currentPlayer;
         private IObservableCollection<GameFieldBoxModel> _gameFields;
@@ -37,10 +41,54 @@ namespace GUI.ViewModels
             }
         }
 
-        public GameFieldViewModel(bool againstBot)
+        public GameFieldViewModel(GameType gameType)
         {
             LoadField();
-            _againstBot = againstBot;
+            _gameType = gameType;
+
+            _asynchronousClient = _kernel.Get<IAsynchronousClient>();
+            _serverSocket = _kernel.Get<IServerSocket>();
+
+            _asynchronousClient.ReceivedCallback = Callback;
+            _serverSocket.ReceivedCallback = Callback;
+
+            if (_gameType == GameType.Client)
+            {
+                _serverSocket.Port = 11001;
+                _asynchronousClient.Port = 11000;
+                _serverSocket.StartListening();
+            }
+            else if (_gameType == GameType.Host)
+            {
+                _serverSocket.Port = 11000;
+                _asynchronousClient.Port = 11001;
+                _serverSocket.StartListening();
+
+                _currentPlayer = 1;
+                IsEnabled = false;
+            }
+        }
+
+        private void Callback(ISocketPackage obj)
+        {
+            switch (obj.RequestType)
+            {
+                case RequestType.Win:
+                    if (obj.Value == 1)
+                        ShowWinner(0);
+                    else
+                        ShowWinner(1);
+                    break;
+                case RequestType.Loose:
+                    if (obj.Value == 1)
+                        ShowWinner(0);
+                    else
+                        ShowWinner(1);
+                    break;
+                case RequestType.Move:
+                    GameFieldClicked(GameFields.First(x => x.Column == obj.Value && x.Row == 0));
+                    break;
+            }
         }
 
         private void LoadField()
@@ -94,32 +142,80 @@ namespace GUI.ViewModels
 
             if (GetVerticalCount(targetGameField) >= 3)
             {
+                if (_gameType == GameType.Client || _gameType == GameType.Host)
+                {
+                    var package = _kernel.Get<ISocketPackage>();
+                    package.RequestType = RequestType.Win;
+                    package.Value = _currentPlayer;
+                    _asynchronousClient.Connect();
+                    _asynchronousClient.Send(package);
+                }
                 ShowWinner();
                 return;
             }
             else if (GetHorizontalCount(targetGameField) >= 3)
             {
+                if (_gameType == GameType.Client || _gameType == GameType.Host)
+                {
+                    var package = _kernel.Get<ISocketPackage>();
+                    package.RequestType = RequestType.Win;
+                    package.Value = _currentPlayer;
+                    _asynchronousClient.Connect();
+                    _asynchronousClient.Send(package);
+                }
                 ShowWinner();
                 return;
             }
             else if (GetDiagonal1Count(targetGameField) >= 3)
             {
+                if (_gameType == GameType.Client || _gameType == GameType.Host)
+                {
+                    var package = _kernel.Get<ISocketPackage>();
+                    package.RequestType = RequestType.Win;
+                    package.Value = _currentPlayer;
+                    _asynchronousClient.Connect();
+                    _asynchronousClient.Send(package);
+                }
                 ShowWinner();
                 return;
             }
             else if (GetDiagonal2Count(targetGameField) >= 3)
             {
+                if (_gameType == GameType.Client || _gameType == GameType.Host)
+                {
+                    var package = _kernel.Get<ISocketPackage>();
+                    package.RequestType = RequestType.Win;
+                    package.Value = _currentPlayer;
+                    _asynchronousClient.Connect();
+                    _asynchronousClient.Send(package);
+                }
                 ShowWinner();
                 return;
             }
 
             ChangePlayer();
 
-            if (_againstBot && _currentPlayer == 1)
+            if (_gameType == GameType.VsBot && _currentPlayer == 1)
             {
                 Thread thread = new Thread(() => RunBot());
                 thread.SetApartmentState(ApartmentState.STA);
                 thread.Start();
+            }
+            else if (_gameType == GameType.Host && _currentPlayer == 1)
+            {
+                var package = _kernel.Get<ISocketPackage>();
+                package.RequestType = RequestType.Move;
+                package.Value = gameField.Column;
+                _asynchronousClient.Connect();
+                _asynchronousClient.Send(package);
+            }
+            else if (_gameType == GameType.Client && _currentPlayer == 1)
+            {
+                var package = _kernel.Get<ISocketPackage>();
+                package.RequestType = RequestType.Move;
+                package.Value = gameField.Column;
+                _asynchronousClient.Connect();
+                _asynchronousClient.Send(package);
             }
             else
             {
@@ -145,10 +241,15 @@ namespace GUI.ViewModels
             }
         }
 
-        private void ShowWinner()
+        private void ShowWinner(int? currentPlayer = null)
         {
-            MessageBox.Show($"Player {_currentPlayer} wins!");
-            LoadField();
+            Thread thread = new Thread(() =>
+            {
+                MessageBox.Show($"Player {currentPlayer ?? _currentPlayer} wins!");
+                LoadField();
+            });
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
         }
 
         private int GetDiagonal2Count(GameFieldBoxModel gameField)

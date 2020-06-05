@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Networking.Contracts
 {
-    public interface IP2PConnection
+    public interface ISocketPackage
     {
+        RequestType RequestType { get; set; }
+        int Value { get; set; }
     }
 }

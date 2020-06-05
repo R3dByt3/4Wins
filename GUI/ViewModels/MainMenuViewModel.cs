@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using GUI.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,17 +12,17 @@ namespace GUI.ViewModels
     {
         public void PlayVsAI()
         {
-            _eventAggregator.PublishOnUIThread(new GameFieldViewModel(true));
+            _eventAggregator.PublishOnUIThread(new GameFieldViewModel(GameType.VsBot));
         }
 
         public void PlayVsPlayer()
         {
-            _eventAggregator.PublishOnUIThread(new GameFieldViewModel(false));
+            _eventAggregator.PublishOnUIThread(new GameFieldViewModel(GameType.VsPlayer));
         }
 
         public void PlayVsNetwork()
         {
-
+            _eventAggregator.PublishOnUIThread(new NetworkSearchViewModel());
         }
     }
 }
